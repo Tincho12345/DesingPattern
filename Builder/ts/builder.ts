@@ -104,6 +104,25 @@ class NormalPersonBuilder implements PersonBuilder {
         this.reset();
         return person;
     }
+}
+
+// Director
+class PersonDirector{
+    private personBuilder: PersonBuilder;
+
+    constructor(personBuilder: PersonBuilder){
+        this.personBuilder = personBuilder;
+    }
+
+    setPersonBuilder(personBuilder: PersonBuilder){
+        this.personBuilder = personBuilder;
+    }
+
+    createSimplePerson(name: string, lastName: string){
+        this.personBuilder
+        .setName(name)
+        .setLastName(lastName);
+    }
 
 }
 
@@ -127,6 +146,11 @@ const Rosa = personBuilder
     .addHobby("Leer")
     .addHobby("Basquet")
     .build();
+
+const director = new PersonDirector(personBuilder);
+director.createSimplePerson("Manolo", "Cena");
+const ManoloCena = personBuilder.build();
     
-console.log(carlos)
-console.log(Rosa)
+console.log(carlos);
+console.log(Rosa);
+console.log(ManoloCena);
