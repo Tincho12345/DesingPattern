@@ -11,9 +11,11 @@ class Form{
                         ${this.getLabel(c)}
                         ${this.getInput(c)}
                 </div>`
-            }, "")}      
+            }, "")}  
+            <button type="Submit">Enviar</button>    
         </form>`;
     }
+
     getLabel(control){
         return `<label>${control.text}</label>`;
     }
@@ -49,6 +51,33 @@ class FormBuilder{
         return this;
     }
 
+    setEmail(name, text){
+        this.controls.push({
+            name: name,
+            text: text,
+            type: "email"
+        });
+        return this;
+    }
+
+    setCheckBox(name, text){
+        this.controls.push({
+            name: name,
+            text: text,
+            type: "checkbox"
+        });
+        return this;
+    }
+
+    setColor(name, text){
+        this.controls.push({
+            name: name,
+            text: text,
+            type: "color"
+        });
+        return this;
+    }
+
     build(){
         const frm = new Form(this.controls, this.action);
         this.reset();
@@ -57,8 +86,18 @@ class FormBuilder{
 }
 
 const frmBuilder = new FormBuilder();
+//Create the form
 const formPeople = frmBuilder.setAction("add.php")
                                 .setText("firstName", "Nombre")
                                 .setText("lastName", "Apellidos")
+                                .setCheckBox("dancer", "Ud Baila?")
+                                .setColor("favoriteColor", "Color Favorito")
+
                                 .build();
 form1.innerHTML = formPeople.getContent();
+
+const formMail = frmBuilder.setAction("send.php")
+    .setText("name","Nombre")
+    .setEmail("email","Correo electrónico")
+    .build();
+form2.innerHTML = formMail.getContent();
