@@ -85,6 +85,37 @@ class FormBuilder{
     }
 }
 
+class FormDirector{
+    constructor(formBuilder){
+        this.setBuilder(formBuilder);
+    }
+    setBuilder(formBuilder){
+        this.formBuilder = formBuilder;
+    }
+
+    // Director para el Tipo Persons
+    createPeopleForm(){
+        // Reseteamos el form
+        this.formBuilder.reset();
+        // Asignamos los encadenamientos
+        this.formBuilder
+            .setText("firstName", "Nombre")
+            .setText("lastName", "Apellido");
+    }
+
+    createContactForm(){
+
+        // Reseteamos el form
+        this.formBuilder.reset();
+        // Asignamos los encadenamientos
+        this.formBuilder
+            .setText("nombreInteresado", "Nombre Interesado")
+            .setEmail("email", "Correo electrónicos")
+            .setText("message", "Mensaje");
+    }
+}
+
+// Instanciamos al objeto
 const frmBuilder = new FormBuilder();
 //Create the form
 const formPeople = frmBuilder.setAction("add.php")
@@ -92,7 +123,6 @@ const formPeople = frmBuilder.setAction("add.php")
                                 .setText("lastName", "Apellidos")
                                 .setCheckBox("dancer", "Ud Baila?")
                                 .setColor("favoriteColor", "Color Favorito")
-
                                 .build();
 form1.innerHTML = formPeople.getContent();
 
@@ -101,3 +131,15 @@ const formMail = frmBuilder.setAction("send.php")
     .setEmail("email","Correo electrónico")
     .build();
 form2.innerHTML = formMail.getContent();
+
+//Implementa FormDirector
+const director = new FormDirector(frmBuilder);
+
+director.createPeopleForm();
+form3.innerHTML = frmBuilder.build().getContent();
+
+director.createPeopleForm();
+form4.innerHTML = frmBuilder.build().getContent();
+
+director.createContactForm();
+form5.innerHTML = frmBuilder.build().getContent();
