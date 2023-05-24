@@ -46,7 +46,6 @@ class CanvasPainter{
         // Pintamos el alto y ancho
         this.ctx.fillRect(0,0, this.width, this.height);
     }
-
 }
 
 // Clase Implementation puede usarse sin el bridge
